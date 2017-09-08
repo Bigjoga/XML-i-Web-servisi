@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://ftn.uns.ac.rs/mt103" xmlns:mt103="http://ftn.uns.ac.rs/mt103">
+
+    <xs:element name="MT_103">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="ID_poruke" type="mt103:TIDPoruke"> </xs:element>
+                <xs:element name="SWIFT_kod_banke_duznika" type="mt103:TSWIFT"> </xs:element>
+                <xs:element name="Obracunski_racun_banke_duznika" type="mt103:TBrojRacuna"> </xs:element>
+                <xs:element name="SWIFT_kod_banke_poverioca" type="mt103:TSWIFT"> </xs:element>
+                <xs:element name="Obracunski_racun_banke_poverioca" type="mt103:TBrojRacuna"> </xs:element>
+                <xs:element name="Duznik-nalogodavac">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:maxLength value="255"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="Svrha_placanja">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:maxLength value="255"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="Primalac_poverilac">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:maxLength value="255"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="Datum_naloga" type="xs:date"/>
+                <xs:element name="Datum_valute" type="xs:date"/>
+                <xs:element name="Racun_duznika" type="mt103:TRacun"> </xs:element>
+                <xs:element name="Racun_poverioca" type="mt103:TRacun"> </xs:element>
+                <xs:element name="Iznos" type="mt103:TIznos"> </xs:element>
+                <xs:element name="Sifra_valute" type="mt103:TOznaka_valute"> </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:simpleType name="TBrojRacuna">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="\d{3}-\d{13}-\d{2}"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="TIDPoruke">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+            <xs:minLength value="1"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="TSWIFT">
+        <xs:restriction base="xs:string">
+            <xs:length value="8"/>
+            <xs:pattern value="[A-Z]{6}[A-Z1-9]{2}"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType abstract="false" name="TRacun">
+        <xs:sequence>
+            <xs:element name="broj_racuna">
+                <xs:simpleType>
+                    <xs:restriction base="mt103:TBrojRacuna"/>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="broj_modela">
+                <xs:simpleType>
+                    <xs:restriction base="xs:integer">
+                        <xs:totalDigits value="2"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="poziv_na_broj">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="20"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="TOznaka_valute">
+        <xs:restriction base="xs:string">
+            <xs:length value="3"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="TIznos">
+        <xs:restriction base="xs:decimal">
+            <xs:totalDigits value="15"/>
+            <xs:fractionDigits value="2"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

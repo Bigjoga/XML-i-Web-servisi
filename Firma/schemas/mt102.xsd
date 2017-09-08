@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.ftn.uns.ac.rs/mt102" xmlns:mt102="http://www.ftn.uns.ac.rs/mt102"
+    xmlns:upl="http://www.ftn.uns.ac.rs/nalogZaPrenos" xmlns:ut="http://www.ftn.uns.ac.rs/xmlws">
+
+    <xs:import namespace="http://www.ftn.uns.ac.rs/nalogZaPrenos" schemaLocation="NalogZaPrenos.xsd"/>
+    <xs:import namespace="http://www.ftn.uns.ac.rs/xmlws" schemaLocation="Utils.xsd"/>
+    <xs:element name="mt102">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="IdPoruke" type="ut:TIDPoruke"/>
+                <xs:element name="SwiftKodBankeDuznika" type="ut:TSWIFT"/>
+                <xs:element name="ObracunskiRacunBankeDuznika" type="ut:TBrojRacuna"/>
+                <xs:element name="SwiftKodBankePoverioca" type="ut:TSWIFT"/>
+                <xs:element name="ObracunskiRacunBankePoverioca" type="ut:TBrojRacuna"/>
+                <xs:element name="UkupanIznos" type="ut:TIznos"/>
+                <xs:element name="SifraValute" type="ut:TOznaka_valute"/>
+                <xs:element name="DatumValute" type="xs:date"/>
+                <xs:element name="Datum" type="xs:date"/>
+                <xs:element maxOccurs="unbounded" ref="upl:nalog_za_prenos"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

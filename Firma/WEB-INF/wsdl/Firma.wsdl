@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions 
+	name ="FirmaService"
+    targetNamespace="http://www.ftn.uns.ac.rs/firma"
+    xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+    xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    
+    xmlns:fak="http://www.ftn.uns.ac.rs/faktura"
+    xmlns:ws="http://www.ftn.uns.ac.rs/firma"
+    xmlns:nzp="http://www.ftn.uns.ac.rs/nalogZaPrenos"
+    xmlns:presek="http://www.ftn.uns.ac.rs/presek"
+    xmlns:utils="http://www.ftn.uns.ac.rs/xmlws"
+    xmlns:zzi="http://www.ftn.uns.ac.rs/ZahtevZaIzvod"
+    >
+    
+    <wsdl:types>
+        <xsd:schema>
+            <xsd:import schemaLocation="Faktura.xsd" namespace="http://www.ftn.uns.ac.rs/faktura"></xsd:import>
+            <xsd:import schemaLocation="NalogZaPrenos.xsd" namespace="http://www.ftn.uns.ac.rs/nalogZaPrenos"></xsd:import>
+            <xsd:import schemaLocation="Presek.xsd" namespace="http://www.ftn.uns.ac.rs/presek"></xsd:import>
+            <xsd:import schemaLocation="Utils.xsd" namespace="http://www.ftn.uns.ac.rs/xmlws"></xsd:import>
+            <xsd:import schemaLocation="ZahtevZaIzvod.xsd" namespace="http://www.ftn.uns.ac.rs/ZahtevZaIzvod"></xsd:import>
+            
+        </xsd:schema>
+    </wsdl:types>
+    
+    <wsdl:message name="posaljiNalogZaPrenosRequest">
+        <wsdl:part name="nalogZaPrenos" element="nzp:nalog_za_prenos"></wsdl:part>
+    </wsdl:message>
+    
+    <wsdl:message name="posaljiNalogZaPrenosResponse">
+    	<wsdl:part name="response" element="utils:status"></wsdl:part>
+    </wsdl:message>
+    
+    <wsdl:message name="posaljiZahtevZaIzvodRequest">
+        <wsdl:part name="zahtevZaIzvod" element="zzi:zahtev_za_izvod"></wsdl:part>
+    </wsdl:message>
+    
+    <wsdl:message name="posaljiZahtevZaIzvodResponse">
+        <wsdl:part name="response" element="presek:presek"></wsdl:part>
+   </wsdl:message>
+    
+
+    
+    
+
+    
+    <wsdl:portType name="Firma">
+    
+        <wsdl:operation name="posaljiZahtevZaIzvod">
+            <wsdl:input message="ws:posaljiZahtevZaIzvodRequest"></wsdl:input>
+            <wsdl:output message="ws:posaljiZahtevZaIzvodResponse"></wsdl:output>
+        </wsdl:operation>
+        
+	    <wsdl:operation name="posaljiNalogZaPrenos">
+            <wsdl:input message="ws:posaljiNalogZaPrenosRequest"></wsdl:input>
+            <wsdl:output message="ws:posaljiNalogZaPrenosResponse"></wsdl:output>
+        </wsdl:operation>
+        
+     
+        
+    </wsdl:portType>
+    
+    <wsdl:binding name="FirmaServiceBinding" type="ws:Firma">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        
+        <wsdl:operation name="posaljiZahtevZaIzvod">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        
+        <wsdl:operation name="posaljiNalogZaPrenos">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        
+    </wsdl:binding>
+    
+    <wsdl:service name="FirmaService">
+        <wsdl:port name="FirmaPort" binding="ws:FirmaServiceBinding">
+            <soap:address location="http://localhost:9001/Firma"/>
+        </wsdl:port>
+    </wsdl:service>
+    
+</wsdl:definitions>

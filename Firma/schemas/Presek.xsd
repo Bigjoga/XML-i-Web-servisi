@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.ftn.uns.ac.rs/presek" xmlns:gl="http://www.ftn.uns.ac.rs/xmlws"
+    xmlns:pr="www.ftn.uns.ac.rs/presek" xmlns:ns1="http://www.ftn.uns.ac.rs/presek">
+    <xs:element name="presek">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="zaglavlje">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="broj_racuna" type="ns1:TBrojRacuna"> </xs:element>
+                            <xs:element name="datum_naloga" minOccurs="1" type="xs:date"/>
+                            <xs:element name="broj_preseka" form="qualified">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:positiveInteger">
+                                        <xs:totalDigits value="2"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="prethodno_stanje" type="ns1:TIznos"> </xs:element>
+                            <xs:element name="broj_promena_u_korist">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:positiveInteger">
+                                        <xs:totalDigits value="6"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="broj_promena_na_teret" type="xs:positiveInteger"/>
+                            <xs:element name="ukupno_u_korist" type="ns1:TIznos"> </xs:element>
+                            <xs:element name="ukupno_na_teret" type="ns1:TIznos"> </xs:element>
+                            <xs:element name="novo_stanje" type="ns1:TIznos"> </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element maxOccurs="unbounded" name="stavka" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="duznik">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:minLength value="3"/>
+                                        <xs:maxLength value="255"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="svrha_placanja">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:minLength value="3"/>
+                                        <xs:maxLength value="255"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="poverilac">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:minLength value="3"/>
+                                        <xs:maxLength value="255"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="datum_naloga" type="xs:date"/>
+                            <xs:element name="datum_valute" type="xs:date"/>
+                            <xs:element name="racun_duznika" type="ns1:TRacun"> </xs:element>
+                            <xs:element name="racun_poverioca" type="ns1:TRacun"> </xs:element>
+                            <xs:element name="iznos" type="ns1:TIznos"> </xs:element>
+                            <xs:element name="smer">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:length value="1"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:simpleType name="TBrojRacuna">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="\d{3}-\d{13}-\d{2}"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="TIDPoruke">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+            <xs:minLength value="1"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="TSWIFT">
+        <xs:restriction base="xs:string">
+            <xs:length value="8"/>
+            <xs:pattern value="[A-Z]{6}[A-Z1-9]{2}"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="TOznaka_valute">
+        <xs:restriction base="xs:string">
+            <xs:length value="3"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="TIznos">
+        <xs:restriction base="xs:decimal">
+            <xs:totalDigits value="15"/>
+            <xs:fractionDigits value="2"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType abstract="false" name="TRacun">
+        <xs:sequence>
+            <xs:element name="broj_racuna">
+                <xs:simpleType>
+                    <xs:restriction base="ns1:TBrojRacuna"/>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="broj_modela">
+                <xs:simpleType>
+                    <xs:restriction base="xs:integer">
+                        <xs:totalDigits value="2"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="poziv_na_broj">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="20"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

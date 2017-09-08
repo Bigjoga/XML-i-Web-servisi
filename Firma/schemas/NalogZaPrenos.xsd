@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.ftn.uns.ac.rs/nalogZaPrenos"
+    xmlns:upl="http://www.ftn.uns.ac.rs/nalogZaPrenos" xmlns:gl="http://www.ftn.uns.ac.rs/xmlws">
+    <xs:element name="nalog_za_prenos">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id_poruke" type="upl:TIDPoruke"> </xs:element>
+                <xs:element name="duznik">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:maxLength value="255"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="svrha_placanja">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:maxLength value="255"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="primalac">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:maxLength value="255"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="podaci_o_uplati">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="oznaka_valute" type="upl:TOznaka_valute"> </xs:element>
+                            <xs:element name="iznos" type="upl:TIznos"> </xs:element>
+                            <xs:element name="racun_duznika" type="upl:TRacun"/>
+                            <xs:element name="racun_poverioca" type="upl:TRacun"/>
+                            <xs:element name="datum_valute" type="xs:date"/>
+                            <xs:element minOccurs="1" name="hitno" type="xs:boolean" default="true"
+                                nillable="false"/>
+                            <xs:element name="datum_naloga" type="xs:date"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:simpleType name="TBrojRacuna">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="\d{3}-\d{13}-\d{2}"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType abstract="false" name="TRacun">
+        <xs:sequence>
+            <xs:element name="broj_racuna">
+                <xs:simpleType>
+                    <xs:restriction base="upl:TBrojRacuna"/>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="broj_modela">
+                <xs:simpleType>
+                    <xs:restriction base="xs:integer">
+                        <xs:totalDigits value="2"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="poziv_na_broj">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="20"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="TIDPoruke">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+            <xs:minLength value="1"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="TPIB">
+        <xs:restriction base="xs:string">
+            <xs:length value="11"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="TSWIFT">
+        <xs:restriction base="xs:string">
+            <xs:length value="8"/>
+            <xs:pattern value="[A-Z]{6}[A-Z1-9]{2}"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="TAdresa">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="TOznaka_valute">
+        <xs:restriction base="xs:string">
+            <xs:length value="3"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="TIznos">
+        <xs:restriction base="xs:decimal">
+            <xs:totalDigits value="15"/>
+            <xs:fractionDigits value="2"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>
